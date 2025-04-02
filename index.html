@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Elegante - Tema Escuro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #e0e0e0;
+            background-color: #121212;
+            line-height: 1.6;
+        }
+
+        .menu-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover {
+            background-image: url('/api/placeholder/800/500');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .restaurant-slogan {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-nav {
+            background-color: #222;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .menu-nav li {
+            margin: 0 1.5rem;
+        }
+
+        .menu-nav a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .menu-nav a:hover {
+            color: #d4af37;
+        }
+
+        .menu-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #d4af37;
+            transition: width 0.3s;
+        }
+
+        .menu-nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-section {
+            padding: 4rem 3rem;
+            display: none;
+        }
+
+        .menu-section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 2px;
+            background-color: #d4af37;
+            margin: 0 auto;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .menu-item {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #d4af37;
+        }
+
+        .item-description {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+
+        .menu-degustacao {
+            background-color: #252525;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .degustacao-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .degustacao-description {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #aaa;
+        }
+
+        .degustacao-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin-top: 1rem;
+        }
+
+        footer {
+            background-color: #0f0f0f;
+            color: #aaa;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .menu-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .restaurant-name {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .menu-nav ul {
+                flex-wrap: wrap;
+            }
+
+            .menu-nav li {
+                margin: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="cover" style="background-image: url('/api/placeholder/800/500');">
+            <div class="cover-content">
+                <h1 class="restaurant-name">Nome do Restaurante</h1>
+                <p class="restaurant-slogan">Sabor de Brasa</p>
+            </div>
+        </div>
+
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="#entradas" class="nav-link active" data-target="entradas">Entradas</a></li>
+                <li><a href="#pratos-principais" class="nav-link" data-target="pratos-principais">Pratos Principais</a>
+                </li>
+                <li><a href="#sobremesas" class="nav-link" data-target="sobremesas">Sobremesas</a></li>
+                <li><a href="#bebidas" class="nav-link" data-target="bebidas">Bebidas</a></li>
+            </ul>
+        </nav>
+
+        <div id="entradas" class="menu-section active">
+            <div class="section-header">
+                <h2 class="section-title">Entradas</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Carpaccio de Filé Mignon</h3>
+                        <span class="item-price">R$ 45,00</span>
+                    </div>
+                    <p class="item-description">Finas fatias de filé mignon, rúcula, parmesão e molho de mostarda dijon.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Pão de Alho Defumado</h3>
+                        <span class="item-price">R$ 32,00</span>
+                    </div>
+                    <p class="item-description">Pão rústico grelhado com manteiga de alho defumada e ervas frescas.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Provoleta Grelhada</h3>
+                        <span class="item-price">R$ 58,00</span>
+                    </div>
+                    <p class="item-description">Queijo provolone grelhado, tomates confitados, orégano fresco e
+                        chimichurri.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Linguiça Artesanal</h3>
+                        <span class="item-price">R$ 42,00</span>
+                    </div>
+                    <p class="item-description">Linguiça defumada artesanal, servida com mostarda rústica e conserva de
+                        cebola.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pratos-principais" class="menu-section">
+            <div class="section-header">
+                <h2 class="section-title">Pratos Principais</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Tomahawk 1kg</h3>
+                        <span class="item-price">R$ 189,00</span>
+                    </div>
+                    <p class="item-description">Corte premium de carne bovina maturada, grelhado na brasa. Acompanha
+                        batatas rústicas e molho chimichurri.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Ancho Angus 400g</h3>
+                        <span class="item-price">R$ 120,00</span>
+                    </div>
+                    <p class="item-description">Bife ancho Angus grelhado na perfeição, acompanhado de legumes assados e
+                        molho de vinho tinto.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Costela Premium</h3>
+                        <span class="item-price">R$ 135,00</span>
+                    </div>
+                    <p class="item-description">Costela bovina assada lentamente por 12 horas, servida com pure de
+                        mandioca e farofa de bacon.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Short Rib Defumado</h3>
+                        <span class="item-price">R$ 148,00</span>
+                    </div>
+                    <p class="item-description">Short rib defumado em madeira de macieira, servido com polenta cremosa e
+                        gremolata de ervas.</p>
+                </div>
+            </div>
+
+            <div class="menu-degustacao">
+                <h3 class="degustacao-title">Menu Degustação de Carnes</h3>
+                <p class="degustacao-description">Uma experiência gastronômica completa com cinco cortes nobres de
+                    carne, criada pelo Chef para ressaltar os melhores sabores do churrasco.</p>
+                <p class="degustacao-price">R$ 320,00 por pessoa</p>
+            </div>
+        </div>
+
+        <div id="sobremesas" class="menu-section">
+            <div class="section-header">
+                <h2 class="section-title">Sobremesas</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Pudim de Doce de Leite</h3>
+                        <span class="item-price">R$ 38,00</span>
+                    </div>
+                    <p class="item-description">Pudim cremoso de doce de leite, calda caramelizada e flor de sal.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Brownie com Sorvete</h3>
+                        <span class="item-price">R$ 42,00</span>
+                    </div>
+                    <p class="item-description">Brownie quente de chocolate intenso, sorvete de baunilha artesanal e
+                        calda de caramelo.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Abacaxi Grelhado</h3>
+                        <span class="item-price">R$ 36,00</span>
+                    </div>
+                    <p class="item-description">Abacaxi grelhado na brasa com especiarias, sorvete de coco e farofa doce
+                        de castanhas.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Seleção de Queijos Brasileiros</h3>
+                        <span class="item-price">R$ 68,00</span>
+                    </div>
+                    <p class="item-description">Variedade de queijos artesanais brasileiros, servidos com geleia de
+                        pimenta, mel trufado e torradas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="bebidas" class="menu-section">
+            <div class="section-header">
+                <h2 class="section-title">Bebidas</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Malbec Argentino</h3>
+                        <span class="item-price">R$ 180,00</span>
+                    </div>
+                    <p class="item-description">Vinho tinto encorpado, com notas de frutas negras e especiarias. Garrafa
+                        750ml.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Cabernet Sauvignon Reserva</h3>
+                        <span class="item-price">R$ 220,00</span>
+                    </div>
+                    <p class="item-description">Aromas de frutas escuras, notas de especiarias e taninos aveludados.
+                        Garrafa 750ml.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Old Fashioned Defumado</h3>
+                        <span class="item-price">R$ 42,00</span>
+                    </div>
+                    <p class="item-description">Bourbon premium, açúcar mascavo, bitter aromático e defumação com
+                        madeira de cerejeira.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Cerveja Artesanal</h3>
+                        <span class="item-price">R$ 32,00</span>
+                    </div>
+                    <p class="item-description">Seleção de cervejas artesanais locais. Garrafa 500ml.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-info">
+                <p>Nome do Restaurante</p>
+                <p>Rua ...., 123 - Centro</p>
+                <p>Reservas: (11) 9876-5432</p>
+            </div>
+            <div class="copyright">
+                © 2025 Maison Fogo. Todos os direitos reservados.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const menuSections = document.querySelectorAll('.menu-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links and sections
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    menuSections.forEach(section => section.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    // Show corresponding section
+                    const targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+
+                    // Smooth scroll to section
+                    window.scrollTo({
+                        top: document.querySelector('.menu-nav').offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
